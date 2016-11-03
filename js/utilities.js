@@ -8,7 +8,7 @@ getRandomInt = function(min, max) {
 getAllPokenames = function() {
   var url;
   showLoading();
-  url = "http://pokeapi.co/api/v1/pokedex/1/";
+  url = "https://pokeapi.co/api/v1/pokedex/1/";
   return $.ajax({
     url: url,
     dataType: 'json'

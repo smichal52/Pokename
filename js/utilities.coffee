@@ -8,7 +8,7 @@ getRandomInt = (min,max) -> Math.floor(Math.random() * (max - min + 1)) + min
 ############### gets all pokemons from pokeapi and sorts them ###############
 getAllPokenames = ()-> 
   showLoading()
-  url  = "http://pokeapi.co/api/v1/pokedex/1/"
+  url  = "https://pokeapi.co/api/v1/pokedex/1/"
   $.ajax(url:url, dataType:'json').
   done((data)->
     compare = (a,b)->#compare function
