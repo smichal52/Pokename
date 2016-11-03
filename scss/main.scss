@@ -1,0 +1,174 @@
+/******************* vars and mixins *******************************/
+//padding
+$padd1: 10px 20px 10px 20px;
+$padd2: 20px 20px 10px 20px; 
+//font colors
+$color1: #f4f4f4;
+$color2: #383838;
+//bg colors
+$bgColor1: #4aaaa5;
+//border colors
+$brColor1: #3a9a95;
+$brColor2: #e3edf4;
+//row colors
+$rowColor1: #ccc;
+$rowColor2: #eee;
+$rowColor3: #D6FFCF;
+//borders
+$border1: 1px solid $brColor1;
+$border2: 2px solid $brColor1;
+$border3: 0px solid $brColor2;
+//mixins
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+@mixin gradient-bg($from, $to) {
+  background-image: -webkit-gradient(linear, left top, left bottom, from($from), to($to));
+  background-image: -webkit-linear-gradient(top, $from, $to);
+  background-image: -moz-linear-gradient(top, $from, $to);
+  background-image: -ms-linear-gradient(top, $from, $to);
+  background-image: -o-linear-gradient(top, $from, $to);
+  background-image: linear-gradient(top, $from, $to);
+}
+
+
+
+
+//fullscreen items
+fullscreen{
+  height:100%;
+  width:100%;
+  overflow: hidden;
+  position: fixed;
+  top: 0px;
+  left:0px;
+}
+body{background:url(bg.png);color:#eee;}
+body,html,#pokeapp{@extend fullscreen;}
+#loading {
+  @extend fullscreen;
+  z-index:    1000;
+  background: rgba( 0, 0, 0, 0.4 ) url('loading.gif') 50% 50% no-repeat;
+  background-size: 200px 200px;
+}
+
+
+
+//gif outside of app
+#pokegif1 {position:absolute;max-width:16%;z-index:-1;left:5%;}
+.compact #pokegif1 {top:0px;left:0px}
+
+
+
+//basic app view
+#pokeapp {
+  //upper part
+  #genmode {width:25px;height:48px;vertical-align:top;cursor:pointer}
+  #header,#version {text-align:center;}
+  #sorttable {width:110px}
+  #clear {width:20px;background:url(clear.png) 50% 50% no-repeat;
+          background-size:contain;height:40px;border:none;outline:none}
+  //table holder
+  #main {
+    overflow-y:auto;
+    overflow-x:hidden;
+    margin-top:70px;
+    width:100%;
+    -webkit-overflow-scrolling:touch;
+    table {//scrolls vertically within #main
+      width:100%;
+      //thead (made to stay on top)
+      thead {
+        position:absolute;
+        margin-top:-50px;
+        width: 100%;
+        white-space:nowrap;
+        text-align:left;
+        th {display:inline-block;width:65%;padding:$padd1;}
+      }
+      //table body (raised up to be below the stable head)
+      tbody {
+        color: black;
+        display:block;
+        margin-top:0px;
+        width:100%;
+        tr{
+          border-top: 1px solid #aaa;
+          &:nth-child(odd){@include gradient-bg(whitesmoke,$rowColor1);}
+          &:nth-child(even){@include gradient-bg(whitesmoke,$rowColor2);}
+          &.new-item{@include gradient-bg(whitesmoke,$rowColor3);}
+        }
+        td {
+          padding:$padd2;width:20%;
+          &:first-child{//version cell
+            width:100px;text-align:right;
+            input.edit{width:43px;}
+          }
+        }
+        label {cursor:pointer;}
+        input.edit{display:none}//Hides input box
+        .editing {
+          label {display: none;}//Hides label text when .editing
+          input.edit { display:inline;padding-left:5px;padding-right:5px;text-align:inherit;}//Shows input text box when .editing
+        }
+      }
+    }
+  }
+}
+
+
+
+
+//special css for compact table (mobile)
+#pokelist {
+  &.compact2 tr {
+    td:nth-child(5){display:inline-block;margin-left: -215%;margin-top:40px;}
+    td:nth-child(6){@extend td:nth-child(5);margin-left:40px}
+  }
+  &.compact tr {
+    td:nth-child(6){display:inline-block;margin-left: -380%;margin-top:40px;}
+  }
+  &.compact td {vertical-align:top; input.edit{padding:5px;margin-top:-10px;}}
+  &.compact2 td {vertical-align:top; input.edit{padding:5px;margin-top:-10px;}}
+}
+
+
+
+
+
+//applies to everything
+.hidden{display:none}
+.blue{color:royalblue}
+input {
+  @include border-radius(4px);
+  padding:14px;
+  width:105px;
+  border: $border1;
+  color:  $color2;
+}
+button {
+  @extend input;
+	padding:15px;
+	color: $color1;
+	background: $bgColor1;
+	font-weight: bold;
+  border: $border3;
+	border-bottom: $border2;
+	opacity: 0.8;
+  &:not([disabled]):hover{opacity:1}
+}
+
+
+
+
+//for the embedded flash clipboard button
+embed{
+  cursor:pointer;
+  box-sizing: border-box;
+  @include border-radius(4px);
+  &:hover  {border: 2px solid #aaa;}
+  &:active {border: 2px inset #888;}
+}
