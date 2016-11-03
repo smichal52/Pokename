@@ -168,7 +168,8 @@ init = function() {
       };
     }
   });
-  return app.appView = new app.AppView();
+  app.appView = new app.AppView();
+  return resize();
 };
 
 $(function() {

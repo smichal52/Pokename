@@ -130,7 +130,7 @@ setupClipCopy = (btn)->
 
 ############### sets the name generation mode based on header checkbox ###############
 setGenMode = (el)->
-  el = $('#genmode').get(0)
+  el = $('#genmode').get(0) 
   app.genMode = if el.checked then "rand" else "seq"
   el.title    = if el.checked then "Click to enter sequential generation mode" else "Click to enter random generation mode"
   
@@ -155,4 +155,3 @@ resize = ()->
   #starts zooming out if width too small
   $('body').css('zoom',scale)
 window.onresize = resize
-resize()

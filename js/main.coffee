@@ -131,7 +131,7 @@ init = ()->
       view = new app.PokeView(model: pok)
       $(view.render().el).addClass('new-item')
       this.$('#pokelist').prepend(view.render().el)
-      app.addTimer = setTimeout('resizeTableHead()', 1000)
+      app.addTimer = setTimeout('resizeTableHead()', 1000) 
 
     #ads a new item to bottom of the table (called by addAll only)
     addOne: (pok)->
@@ -156,5 +156,7 @@ init = ()->
 
   #initialize the app view
   app.appView = new app.AppView()
+  
+  resize()
   
 $(->init())
